@@ -2,7 +2,8 @@
   "name": "@blackbaud/my-module",
   "version": "0.0.1",
   "description": "Single-page-application for skyux-spa-test-stache2",
-  "main": "index.ts",
+  "main": "bundles/my-module.umd.js",
+  "module": "index.ts",
   "engines": {
     "node": ">=6.3.1"
   },

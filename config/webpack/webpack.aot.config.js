@@ -17,12 +17,30 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loader: 'ts-loader',
-        options: {
-          compilerOptions: {
-            declaration: false
+        use: [
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              // Ignore the "Cannot find module" error that occurs when referencing
+              // an aliased file.  Webpack will still throw an error when a module
+              // cannot be resolved via a file path or alias.
+              ignoreDiagnostics: [2307]
+            }
+          },
+          {
+            loader: 'angular2-template-loader'
           }
-        }
+        ],
+        exclude: [
+          /node_modules/,
+          /\.(spec|e2e|d)\.ts$/
+        ]
+      },
+      {
+        test: /\.html$/,
+        use: [
+          { loader: 'raw-loader' }
+        ]
       }
     ]
   },

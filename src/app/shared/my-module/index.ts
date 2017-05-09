@@ -1,4 +1,9 @@
 import { NgModule } from '@angular/core';
+import { FooModule } from './modules/foo/foo.module';
 
-@NgModule({})
+@NgModule({
+  exports: [
+    FooModule
+  ]
+})
 export class MyModule { }

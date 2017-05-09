@@ -27,3 +27,4 @@ dist
 
 *.ngfactory.ts
 *.ngsummary.json
+yarn.lock
