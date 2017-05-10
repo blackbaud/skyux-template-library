@@ -18,6 +18,7 @@ jspm_packages
 
 # SKY UX temp directory
 .skyuxtmp
+.srctmp
 
 # SKY UX build directory
 dist
@@ -28,4 +29,3 @@ dist
 *.ngfactory.ts
 *.ngsummary.json
 yarn.lock
-aot
