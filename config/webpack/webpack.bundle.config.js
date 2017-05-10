@@ -1,12 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
-const helpers = require('./config/utils/helpers');
+const helpers = require('../utils/helpers');
 const ngcWebpack = require('ngc-webpack');
 
 module.exports = {
-  entry: './.srctemp/index.ts',
+  entry: helpers.root('.srctemp/index.ts'),
   output: {
-    path: path.resolve(__dirname, 'dist', 'bundles'),
+    path: path.resolve(__dirname, '..', '..', 'dist', 'bundles'),
     filename: 'core.umd.js',
     libraryTarget: 'umd',
     library: 'sky.myLibrary'
@@ -44,7 +44,7 @@ module.exports = {
     ),
 
     new ngcWebpack.NgcWebpackPlugin({
-      tsConfig: helpers.root('tsconfig-aot.json')
+      tsConfig: helpers.root('tsconfig-bundle.json')
     })
   ]
 };

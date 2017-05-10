@@ -1,1 +1,1 @@
-export * from './src/app/shared/my-module/my-module.module';
+export * from './src/app/shared/components';

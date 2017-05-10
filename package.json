@@ -3,36 +3,38 @@
   "version": "0.0.1",
   "description": "Single-page-application for skyux-spa-test-stache2",
   "main": "bundles/main.umd.js",
-  "module": "src/my-library.module.js",
+  "module": "index.ts",
   "engines": {
-    "node": ">=6.3.1"
+    "node": ">=6.9.1"
   },
   "scripts": {
     "skyux": "skyux",
     "clean": "rimraf dist .srctemp && npm run clean:ngc",
     "clean:ngc": "rimraf **/*.ngsummary.json **/*.ngfactory.ts **/*.ngstyle.ts",
-    "prep": "npm run clean && node ./scripts/stage-ts.js",
-    "transpile": "webpack --config ./webpack.bundle.config.js --progress",
-    "build": "npm run clean && npm run prep && npm run transpile && npm run minify && npm run clean:ngc",
+    "prepare:ts": "npm run clean && node ./scripts/stage-ts.js",
+    "prepare:package": "node ./scripts/prepare-package.js",
+    "transpile": "webpack --config ./config/webpack/webpack.bundle.config.js --progress",
+    "build": "npm run clean && npm run prepare:ts && npm run transpile && npm run minify && npm run prepare:package && npm run clean",
     "minify": "uglifyjs dist/bundles/core.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/core.umd.min.js"
   },
   "keywords": [],
   "author": "Blackbaud",
   "license": "ISC",
   "dependencies": {
-    "@blackbaud/skyux": "2.0.0-beta.23",
-    "ngc-webpack": "2.0.0"
+    "@blackbaud/skyux": "^2.0.0-beta.24"
   },
   "devDependencies": {
     "@angular/compiler": "2.4.8",
     "@angular/compiler-cli": "2.4.8",
-    "@blackbaud/skyux-builder": "1.0.0-beta.22",
-    "@ngtools/webpack": "1.2.14",
+    "@blackbaud/skyux-builder": "blackbaud/skyux-builder",
     "codelyzer": "2.0.0-beta.1",
-    "copyfiles": "1.2.0",
+    "fs-extra": "3.0.1",
+    "glob": "7.1.1",
+    "ngc-webpack": "2.0.0",
+    "node-sass": "4.5.2",
     "rimraf": "2.6.1",
-    "rollup": "0.41.6",
     "uglify-js": "3.0.1",
-    "webpack": "2.4.1"
+    "webpack": "2.4.1",
+    "typescript": "2.0.6"
   }
 }
