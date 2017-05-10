@@ -2,30 +2,38 @@
   "name": "@blackbaud/my-module",
   "version": "0.0.1",
   "description": "Single-page-application for skyux-spa-test-stache2",
-  "main": "bundles/my-module.umd.js",
-  "module": "index.ts",
+  "main": "bundles/main.umd.js",
+  "module": "bundles/main.umd.js",
   "engines": {
     "node": ">=6.3.1"
   },
   "scripts": {
     "skyux": "skyux",
-    "build": "rimraf dist && ngc index.ts && webpack --config config/webpack/webpack.prod.config.js && node ./scripts/prepare-package.js",
+    "clean": "rimraf dist && npm run clean:ngc",
+    "clean:ngc": "rimraf **/*.ngsummary.json **/*.ngfactory.ts **/*.ngstyle.ts",
+    "copy": "copyfiles package.json CHANGELOG.md README.md dist",
+    "transpile": "webpack --config ./webpack.aot.config.js --progress",
+    "build": "npm run clean && npm run transpile && npm run copy && npm run clean:ngc",
+    "minify": "uglifyjs dist/bundles/my-module.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/my-module.umd.min.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Blackbaud",
   "license": "ISC",
   "dependencies": {
-    "@blackbaud/skyux": "2.0.0-beta.23"
+    "@blackbaud/skyux": "2.0.0-beta.23",
+    "ngc-webpack": "2.0.0"
   },
   "devDependencies": {
+    "@angular/compiler": "2.4.8",
     "@angular/compiler-cli": "2.4.8",
     "@blackbaud/skyux-builder": "1.0.0-beta.22",
+    "@ngtools/webpack": "1.2.14",
     "codelyzer": "2.0.0-beta.1",
-    "fs-extra": "3.0.1",
+    "copyfiles": "1.2.0",
     "rimraf": "2.6.1",
-    "ts-loader": "2.0.3",
-    "typescript": "2.2.2",
+    "rollup": "0.41.6",
+    "uglify-js": "3.0.1",
     "webpack": "2.4.1"
   }
 }
