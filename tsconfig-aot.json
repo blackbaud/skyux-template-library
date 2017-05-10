@@ -17,18 +17,17 @@
       "@angular/core": ["node_modules/@angular/core"],
       "@angular/common": ["node_modules/@angular/common"]
     },
-    "rootDir": ".",
+    "rootDir": "./.srctemp",
     "outDir": "dist",
     "sourceMap": true,
     "inlineSources": true,
     "skipLibCheck": true
   },
   "files": [
-    "index.ts"
+    "./.srctemp/index.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
-    "useWebpackText": true
+    "forkChecker": true
   },
   "angularCompilerOptions": {
     "strictMetadataEmit": true

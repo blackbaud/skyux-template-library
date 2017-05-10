@@ -1,21 +1,20 @@
 {
-  "name": "@blackbaud/my-module",
+  "name": "@blackbaud/my-library",
   "version": "0.0.1",
   "description": "Single-page-application for skyux-spa-test-stache2",
   "main": "bundles/main.umd.js",
-  "module": "bundles/main.umd.js",
+  "module": "src/my-library.module.js",
   "engines": {
     "node": ">=6.3.1"
   },
   "scripts": {
     "skyux": "skyux",
-    "clean": "rimraf dist && npm run clean:ngc",
+    "clean": "rimraf dist .srctemp && npm run clean:ngc",
     "clean:ngc": "rimraf **/*.ngsummary.json **/*.ngfactory.ts **/*.ngstyle.ts",
-    "copy": "copyfiles package.json CHANGELOG.md README.md dist",
-    "transpile": "webpack --config ./webpack.aot.config.js --progress",
-    "build": "npm run clean && npm run transpile && npm run copy && npm run clean:ngc",
-    "minify": "uglifyjs dist/bundles/my-module.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/my-module.umd.min.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prep": "npm run clean && node ./scripts/stage-ts.js",
+    "transpile": "webpack --config ./webpack.bundle.config.js --progress",
+    "build": "npm run clean && npm run prep && npm run transpile && npm run minify && npm run clean:ngc",
+    "minify": "uglifyjs dist/bundles/core.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/core.umd.min.js"
   },
   "keywords": [],
   "author": "Blackbaud",

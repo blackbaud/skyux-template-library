@@ -4,11 +4,12 @@ const helpers = require('./config/utils/helpers');
 const ngcWebpack = require('ngc-webpack');
 
 module.exports = {
-  entry: './index.ts',
+  entry: './.srctemp/index.ts',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
-    libraryTarget: 'umd'
+    path: path.resolve(__dirname, 'dist', 'bundles'),
+    filename: 'core.umd.js',
+    libraryTarget: 'umd',
+    library: 'sky.myLibrary'
   },
   externals: [
     /^@angular\//,
@@ -44,13 +45,6 @@ module.exports = {
 
     new ngcWebpack.NgcWebpackPlugin({
       tsConfig: helpers.root('tsconfig-aot.json')
-    }),
-
-    new webpack.optimize.UglifyJsPlugin({
-      beautify: false,
-      comments: false,
-      mangle: { screw_ie8: true, keep_fnames: true },
-      sourceMap: true
     })
   ]
 };
