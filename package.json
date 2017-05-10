@@ -9,7 +9,7 @@
   },
   "scripts": {
     "skyux": "skyux",
-    "clean": "rimraf dist .srctemp && npm run clean:ngc",
+    "clean": "rimraf dist .srctmp && npm run clean:ngc",
     "clean:ngc": "rimraf **/*.ngsummary.json **/*.ngfactory.ts **/*.ngstyle.ts",
     "prepare:ts": "npm run clean && node ./scripts/stage-ts.js",
     "prepare:package": "node ./scripts/prepare-package.js",

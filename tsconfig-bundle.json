@@ -17,14 +17,14 @@
       "@angular/core": ["node_modules/@angular/core"],
       "@angular/common": ["node_modules/@angular/common"]
     },
-    "rootDir": "./.srctemp",
+    "rootDir": "./.srctmp",
     "outDir": "dist",
     "sourceMap": true,
     "inlineSources": true,
     "skipLibCheck": true
   },
   "files": [
-    "./.srctemp/index.ts"
+    "./.srctmp/index.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true

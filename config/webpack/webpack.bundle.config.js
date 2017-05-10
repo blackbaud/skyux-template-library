@@ -4,7 +4,7 @@ const helpers = require('../utils/helpers');
 const ngcWebpack = require('ngc-webpack');
 
 module.exports = {
-  entry: helpers.root('.srctemp/index.ts'),
+  entry: helpers.root('.srctmp/index.ts'),
   output: {
     path: path.resolve(__dirname, '..', '..', 'dist', 'bundles'),
     filename: 'core.umd.js',

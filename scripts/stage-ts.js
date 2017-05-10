@@ -3,7 +3,7 @@ const glob = require('glob');
 const path = require('path');
 const sass = require('node-sass');
 
-const TEMP_PATH = './.srctemp';
+const TEMP_PATH = './.srctmp';
 
 function copySource() {
   fs.copySync('./src/app/shared/components', TEMP_PATH);
