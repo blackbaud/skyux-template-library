@@ -1,1 +1,1 @@
-export * from './src/app/shared/components';
+export * from './src/app/public';

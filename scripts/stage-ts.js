@@ -6,7 +6,7 @@ const sass = require('node-sass');
 const TEMP_PATH = './.srctmp';
 
 function copySource() {
-  fs.copySync('./src/app/shared/components', TEMP_PATH);
+  fs.copySync('./src/app/public', TEMP_PATH);
 }
 
 function deleteNonDistFiles() {

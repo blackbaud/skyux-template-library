@@ -7,9 +7,9 @@ module.exports = {
   entry: helpers.root('.srctmp/index.ts'),
   output: {
     path: path.resolve(__dirname, '..', '..', 'dist', 'bundles'),
-    filename: 'core.umd.js',
+    filename: 'my-library.umd.js',
     libraryTarget: 'umd',
-    library: 'sky.myLibrary'
+    library: 'MyLibrary'
   },
   externals: [
     /^@angular\//,

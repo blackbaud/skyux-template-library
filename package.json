@@ -16,7 +16,7 @@
     "prepare:package": "node ./scripts/prepare-package.js",
     "transpile": "webpack --config ./config/webpack/webpack.bundle.config.js --progress",
     "build": "npm run clean && npm run prepare:ts && npm run transpile && npm run minify && npm run prepare:package && npm run clean:build",
-    "minify": "uglifyjs dist/bundles/core.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/core.umd.min.js",
+    "minify": "uglifyjs dist/bundles/my-library.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/my-library.umd.min.js",
     "test": "skyux test"
   },
   "keywords": [],
