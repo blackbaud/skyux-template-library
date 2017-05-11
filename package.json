@@ -10,12 +10,14 @@
   "scripts": {
     "skyux": "skyux",
     "clean": "rimraf dist .srctmp && npm run clean:ngc",
+    "clean:build": "npm run clean:ngc && rimraf .srctmp",
     "clean:ngc": "rimraf **/*.ngsummary.json **/*.ngfactory.ts **/*.ngstyle.ts",
     "prepare:ts": "npm run clean && node ./scripts/stage-ts.js",
     "prepare:package": "node ./scripts/prepare-package.js",
     "transpile": "webpack --config ./config/webpack/webpack.bundle.config.js --progress",
-    "build": "npm run clean && npm run prepare:ts && npm run transpile && npm run minify && npm run prepare:package && npm run clean",
-    "minify": "uglifyjs dist/bundles/core.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/core.umd.min.js"
+    "build": "npm run clean && npm run prepare:ts && npm run transpile && npm run minify && npm run prepare:package && npm run clean:build",
+    "minify": "uglifyjs dist/bundles/core.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/core.umd.min.js",
+    "test": "skyux test"
   },
   "keywords": [],
   "author": "Blackbaud",
@@ -24,9 +26,7 @@
     "@blackbaud/skyux": "^2.0.0-beta.24"
   },
   "devDependencies": {
-    "@angular/compiler": "2.4.8",
-    "@angular/compiler-cli": "2.4.8",
-    "@blackbaud/skyux-builder": "blackbaud/skyux-builder",
+    "@blackbaud/skyux-builder": "^1.0.0-beta.23",
     "codelyzer": "2.0.0-beta.1",
     "fs-extra": "3.0.1",
     "glob": "7.1.1",
