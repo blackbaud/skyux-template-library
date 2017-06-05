@@ -15,7 +15,7 @@
     "prepare:ts": "npm run clean && node ./scripts/stage-ts.js",
     "prepare:package": "node ./scripts/prepare-package.js",
     "transpile": "webpack --config ./config/webpack/webpack.bundle.config.js --progress",
-    "build": "npm run clean && npm run prepare:ts && npm run transpile && npm run minify && npm run prepare:package && npm run clean:build",
+    "build": "npm run clean && npm run prepare:ts && npm run transpile && npm run minify && npm run prepare:package && npm run clean:ngc",
     "minify": "uglifyjs dist/bundles/my-library.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/my-library.umd.min.js",
     "test": "skyux test"
   },
@@ -23,18 +23,18 @@
   "author": "Blackbaud",
   "license": "ISC",
   "dependencies": {
-    "@blackbaud/skyux": "2.0.0-beta.26"
+    "@blackbaud/skyux": "2.0.0-beta.29"
   },
   "devDependencies": {
-    "@blackbaud/skyux-builder": "1.0.0-beta.25",
+    "@blackbaud/skyux-builder": "1.0.0-beta.28",
     "codelyzer": "2.0.0-beta.1",
     "fs-extra": "3.0.1",
     "glob": "7.1.1",
     "ngc-webpack": "2.0.0",
-    "node-sass": "4.5.2",
+    "node-sass": "4.5.3",
     "rimraf": "2.6.1",
-    "uglify-js": "3.0.1",
-    "webpack": "2.4.1",
+    "uglify-js": "3.0.7",
+    "webpack": "2.5.1",
     "typescript": "2.0.6"
   }
 }
