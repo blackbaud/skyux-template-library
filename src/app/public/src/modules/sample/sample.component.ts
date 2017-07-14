@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { LibraryConfigService } from '../shared/config.service';
+import { LibraryConfigService } from '../shared';
 
 @Component({
   selector: 'lib-sample',
