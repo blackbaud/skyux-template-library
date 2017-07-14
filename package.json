@@ -1,23 +1,25 @@
 {
   "name": "@blackbaud/my-library",
-  "version": "0.0.1",
-  "description": "Single-page-application for skyux-spa-test-stache2",
-  "main": "bundles/main.umd.js",
+  "version": "1.0.0",
+  "description": "SKY UX component library",
+  "main": "bundles/bundle.umd.js",
   "module": "index.ts",
   "engines": {
-    "node": ">=6.9.1"
+    "node": ">=6.11.1"
   },
   "scripts": {
     "skyux": "skyux",
-    "test": "skyux test && skyux e2e"
+    "test": "skyux test && skyux e2e",
+    "build": "skyux build-public-library",
+    "start": "skyux serve"
   },
   "keywords": [],
   "author": "Blackbaud",
   "license": "ISC",
-  "peerDependencies": {
-    "@blackbaud/skyux": "2.0.0-rc.4"
+  "dependencies": {
+    "@blackbaud/skyux": "2.0.0-rc.5"
   },
   "devDependencies": {
-    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#lib-release"
+    "@blackbaud/skyux-builder": "blackbaud/skyux-builder"
   }
 }

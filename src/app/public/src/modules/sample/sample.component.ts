@@ -8,5 +8,5 @@ import { LibraryConfigService } from '../shared/config.service';
   styleUrls: ['./sample.component.scss']
 })
 export class LibrarySampleComponent {
-  constructor(public configService: LibraryConfigService) { }
+  constructor(public configService: LibraryConfigService) {}
 }

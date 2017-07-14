@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-import { SkyAppConfig } from '@blackbaud/skyux-builder/runtime';
-import { LibraryConfigService } from './public';
+
+import { LibraryModule } from './public';
 
 // Specify entry components, module-level providers, etc. here.
 @NgModule({
-  providers: [
-    {
-      provide: LibraryConfigService,
-      useExisting: SkyAppConfig
-    }
+  imports: [
+    LibraryModule
+  ],
+  exports: [
+    LibraryModule
   ],
   entryComponents: []
 })
