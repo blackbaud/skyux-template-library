@@ -1,4 +1,7 @@
-export class MyConfigService {
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class LibraryConfigService {
   public skyux: any = {
     app: {
       title: ''

@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MyFooComponent } from './foo.component';
+import { LibrarySampleComponent } from './sample.component';
 
 @NgModule({
   declarations: [
-    MyFooComponent
+    LibrarySampleComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    MyFooComponent
+    LibrarySampleComponent
   ]
 })
-export class MyFooModule { }
+export class LibrarySampleModule { }
