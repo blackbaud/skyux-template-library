@@ -30,5 +30,5 @@ npm test
 
 ## Deploying to npmjs.org (or an internal NPM stream):
 
-- Rename `@blackbaud/my-library` to the name of your registered module.
+- Update the `name` property in **package.json** to the name of your registered module.
 - Publish the contents of the bundled **dist** folder.
