@@ -1,6 +1,7 @@
 {
   "mode": "easy",
   "compileMode": "aot",
+  "name": "my-library",
   "appSettings": {
     "myLibrary": {
       "name": "My Library"
