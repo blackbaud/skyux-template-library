@@ -1,0 +1,6 @@
+{
+  "lib_sample_message": {
+    "_description": "The message for the sample component.",
+    "message": "Hello, world!"
+  }
+}
