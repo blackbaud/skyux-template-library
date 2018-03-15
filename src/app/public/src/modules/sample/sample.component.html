@@ -1,5 +1,8 @@
 <div class="lib-sample">
-  Hello, {{ configService.skyux.appSettings.myLibrary.name }}!
+  <p>
+    The name of this library is "{{ configService.skyux.appSettings.myLibrary.name }}".
+  </p>
 
+  <strong>Special message:</strong><br>
   {{ 'lib_sample_message' | skyAppResources }}
 </div>
