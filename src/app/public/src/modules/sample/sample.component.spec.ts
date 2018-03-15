@@ -1,7 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
 
-import { SkyAppConfig } from '@blackbaud/skyux-builder/runtime';
-import { expect } from '@blackbaud/skyux-builder/runtime/testing/browser';
+import {
+  SkyAppConfig
+} from '@blackbaud/skyux-builder/runtime';
+
+import {
+  expect,
+  SkyAppTestModule
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { LibrarySampleComponent } from './sample.component';
 
@@ -23,8 +32,9 @@ describe('LibrarySampleComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        LibrarySampleComponent
+      declarations: [],
+      imports: [
+        SkyAppTestModule
       ],
       providers: [
         { provide: SkyAppConfig, useClass: MockSkyAppConfig }
