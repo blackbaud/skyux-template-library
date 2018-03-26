@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
-import { LibraryConfigService } from '../shared';
+import {
+  SkyModalService
+} from '@blackbaud/skyux/dist/core';
+
+import { LibrarySampleModalComponent } from './sample-modal.component';
 
 @Component({
   selector: 'lib-sample',
@@ -8,5 +14,11 @@ import { LibraryConfigService } from '../shared';
   styleUrls: ['./sample.component.scss']
 })
 export class LibrarySampleComponent {
-  constructor(public configService: LibraryConfigService) {}
+  constructor(
+    private modalService: SkyModalService
+  ) { }
+
+  public openModal() {
+    this.modalService.open(LibrarySampleModalComponent);
+  }
 }
