@@ -7,26 +7,23 @@ import {
 } from '@angular/common';
 
 import {
-  SkyModalModule
+  SkyModalModule,
+  SkyErrorModule
 } from '@blackbaud/skyux/dist/core';
 
 import { LibrarySampleComponent } from './sample.component';
-import { LibrarySampleModalComponent } from './sample-modal.component';
 
 @NgModule({
   declarations: [
-    LibrarySampleComponent,
-    LibrarySampleModalComponent
+    LibrarySampleComponent
   ],
   imports: [
     CommonModule,
-    SkyModalModule
+    SkyModalModule,
+    SkyErrorModule
   ],
   exports: [
     LibrarySampleComponent
-  ],
-  entryComponents: [
-    LibrarySampleModalComponent
   ]
 })
 export class LibrarySampleModule { }

@@ -3,22 +3,25 @@ import {
 } from '@angular/core';
 
 import {
-  SkyModalService
+  SkyErrorModalService
 } from '@blackbaud/skyux/dist/core';
-
-import { LibrarySampleModalComponent } from './sample-modal.component';
 
 @Component({
   selector: 'lib-sample',
   templateUrl: './sample.component.html',
-  styleUrls: ['./sample.component.scss']
+  styleUrls: ['./sample.component.scss'],
+  providers: [SkyErrorModalService]
 })
 export class LibrarySampleComponent {
   constructor(
-    private modalService: SkyModalService
+    private errorService: SkyErrorModalService
   ) { }
 
   public openModal() {
-    this.modalService.open(LibrarySampleModalComponent);
+    this.errorService.open({
+      errorTitle: 'Some title',
+      errorDescription: 'Some description',
+      errorCloseText: 'Close'
+    });
   }
 }
