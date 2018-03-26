@@ -2,26 +2,20 @@ import {
   Component
 } from '@angular/core';
 
-import {
-  SkyErrorModalService
-} from '@blackbaud/skyux/dist/core';
+import { LibrarySampleService } from './sample.service';
 
 @Component({
   selector: 'lib-sample',
   templateUrl: './sample.component.html',
   styleUrls: ['./sample.component.scss'],
-  providers: [SkyErrorModalService]
+  providers: [LibrarySampleService]
 })
 export class LibrarySampleComponent {
   constructor(
-    private errorService: SkyErrorModalService
+    private libService: LibrarySampleService
   ) { }
 
   public openModal() {
-    this.errorService.open({
-      errorTitle: 'Some title',
-      errorDescription: 'Some description',
-      errorCloseText: 'Close'
-    });
+    this.libService.launchError('Something bad happened.');
   }
 }
