@@ -20,6 +20,6 @@
     "@blackbaud/skyux": "2.10.0"
   },
   "devDependencies": {
-    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#visual-cli-command"
+    "@blackbaud/skyux-builder": "blackbaud/skyux-builder#library-i18n-resources"
   }
 }
