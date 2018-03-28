@@ -1,3 +1,5 @@
-.lib-sample {
-  color: red;
+@import "../../scss/variables";
+
+.my-lib-sample {
+  color: $my-lib-color-red;
 }

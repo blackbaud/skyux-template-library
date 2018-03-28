@@ -1,13 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
 
-import { expect } from '@blackbaud/skyux-builder/runtime/testing/browser';
+import {
+  SkyAppConfig
+} from '@blackbaud/skyux-builder/runtime';
 
-import { LibrarySampleComponent } from './sample.component';
-import { LibraryConfigService } from '../shared';
+import {
+  expect
+} from '@blackbaud/skyux-builder/runtime/testing/browser';
+
+import { MyLibrarySampleComponent } from './sample.component';
 
 class MockSkyAppConfig {
-  public runtime: any = {};
-  public skyux: any = {
+  public runtime = {};
+  public skyux = {
     name: 'test',
     appSettings: {
       myLibrary: {
@@ -17,29 +25,27 @@ class MockSkyAppConfig {
   };
 }
 
-describe('LibrarySampleComponent', () => {
-  let component: LibrarySampleComponent;
-  let fixture: ComponentFixture<LibrarySampleComponent>;
+describe('Sample component', () => {
+  let component: MyLibrarySampleComponent;
+  let fixture: ComponentFixture<MyLibrarySampleComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        LibrarySampleComponent
+        MyLibrarySampleComponent
       ],
       providers: [
-        { provide: LibraryConfigService, useClass: MockSkyAppConfig }
+        { provide: SkyAppConfig, useClass: MockSkyAppConfig }
       ]
-    })
-    .compileComponents();
+    });
 
-    fixture = TestBed.createComponent(LibrarySampleComponent);
+    fixture = TestBed.createComponent(MyLibrarySampleComponent);
     component = fixture.componentInstance;
   });
 
   it('should output the name from config', () => {
     fixture.detectChanges();
     expect(fixture).toExist();
-    expect(component.configService.skyux.name).toBe('test');
-    expect(component.configService.skyux.appSettings.myLibrary.name).toBe('library');
+    expect(component.getSetting('name')).toBe('library');
   });
 });

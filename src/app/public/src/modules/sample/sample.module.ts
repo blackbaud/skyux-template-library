@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LibrarySampleComponent } from './sample.component';
+import {
+  SkyAppRuntimeModule
+} from '@blackbaud/skyux-builder/runtime/runtime.module';
+
+import { MyLibrarySampleComponent } from './sample.component';
 
 @NgModule({
   declarations: [
-    LibrarySampleComponent
+    MyLibrarySampleComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SkyAppRuntimeModule
   ],
   exports: [
-    LibrarySampleComponent
+    MyLibrarySampleComponent
   ]
 })
-export class LibrarySampleModule { }
+export class MyLibrarySampleModule { }
