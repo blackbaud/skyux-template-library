@@ -12,6 +12,7 @@ import {
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
 import { MyLibrarySampleComponent } from './sample.component';
+import { MockSkyAppResourcesPipe } from './fixtures/resources.fixture.pipe';
 
 class MockSkyAppConfig {
   public runtime = {};
@@ -32,7 +33,8 @@ describe('Sample component', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        MyLibrarySampleComponent
+        MyLibrarySampleComponent,
+        MockSkyAppResourcesPipe
       ],
       providers: [
         { provide: SkyAppConfig, useClass: MockSkyAppConfig }
