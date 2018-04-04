@@ -16,10 +16,14 @@
   "keywords": [],
   "author": "Blackbaud",
   "license": "ISC",
+  "peerDependencies": {
+    "@blackbaud/skyux": "^2.11.0"
+  },
   "dependencies": {
-    "@blackbaud/skyux": "2.0.0-rc.10"
+    "@blackbaud/skyux-design-tokens": "0.0.8"
   },
   "devDependencies": {
-    "@blackbaud/skyux-builder": "1.0.0-rc.13"
+    "@blackbaud/skyux-builder": "1.12.0",
+    "@blackbaud/skyux": "2.11.0"
   }
 }

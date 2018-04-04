@@ -1,14 +1,16 @@
-import { NgModule } from '@angular/core';
+import {
+  NgModule
+} from '@angular/core';
 
-import { LibrarySampleModule } from './modules/sample';
-import { LibrarySharedModule } from './modules/shared';
+import {
+  MyLibrarySampleModule
+} from './modules/sample';
 
-export * from './modules/shared';
+export * from './modules/sample';
 
 @NgModule({
   exports: [
-    LibrarySampleModule,
-    LibrarySharedModule
+    MyLibrarySampleModule
   ]
 })
-export class LibraryModule { }
+export class MyLibraryModule { }

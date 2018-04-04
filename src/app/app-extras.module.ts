@@ -1,24 +1,18 @@
-import { NgModule } from '@angular/core';
+import {
+  NgModule
+} from '@angular/core';
 
-import { SkyAppConfig } from '@blackbaud/skyux-builder/runtime';
-
-import { LibraryModule, LibraryConfigService } from './public';
+import { MyLibraryModule } from './public';
 
 // Specify entry components, module-level providers, etc. here.
 @NgModule({
   imports: [
-    LibraryModule
+    MyLibraryModule
   ],
   exports: [
-    LibraryModule
+    MyLibraryModule
   ],
-  providers: [
-    // The config service acts as an adaptor for skyuxconfig.json:
-    {
-      provide: LibraryConfigService,
-      useExisting: SkyAppConfig
-    }
-  ],
+  providers: [],
   entryComponents: []
 })
 export class AppExtrasModule { }
