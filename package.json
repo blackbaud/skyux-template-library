@@ -19,9 +19,7 @@
   "peerDependencies": {
     "@blackbaud/skyux": "^2.11.0"
   },
-  "dependencies": {
-    "@blackbaud/skyux-design-tokens": "0.0.8"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@blackbaud/skyux-builder": "1.12.0",
     "@blackbaud/skyux": "2.11.0"
