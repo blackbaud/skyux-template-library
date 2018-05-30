@@ -11,7 +11,9 @@ import {
   expect
 } from '@blackbaud/skyux-builder/runtime/testing/browser';
 
-import { MyLibrarySampleComponent } from './sample.component';
+import {
+  MyLibrarySampleComponent
+} from './sample.component';
 
 class MockSkyAppConfig {
   public runtime: any = {};
@@ -34,7 +36,10 @@ describe('LibrarySampleComponent', () => {
         MyLibrarySampleComponent
       ],
       providers: [
-        { provide: SkyAppConfig, useClass: MockSkyAppConfig }
+        {
+          provide: SkyAppConfig,
+          useClass: MockSkyAppConfig
+        }
       ]
     });
 

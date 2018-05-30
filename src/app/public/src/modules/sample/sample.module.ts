@@ -6,7 +6,9 @@ import {
   CommonModule
 } from '@angular/common';
 
-import { MyLibrarySampleComponent } from './sample.component';
+import {
+  MyLibrarySampleComponent
+} from './sample.component';
 
 @NgModule({
   declarations: [

@@ -2,7 +2,9 @@ import {
   NgModule
 } from '@angular/core';
 
-import { MyLibraryModule } from './public';
+import {
+  MyLibraryModule
+} from './public';
 
 // Specify entry components, module-level providers, etc. here.
 @NgModule({

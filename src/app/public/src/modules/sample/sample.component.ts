@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   OnInit
 } from '@angular/core';
@@ -10,7 +11,8 @@ import {
 @Component({
   selector: 'lib-sample',
   templateUrl: './sample.component.html',
-  styleUrls: ['./sample.component.scss']
+  styleUrls: ['./sample.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyLibrarySampleComponent implements OnInit {
   public appSettings: any;
@@ -19,7 +21,7 @@ export class MyLibrarySampleComponent implements OnInit {
     private appConfig: SkyAppConfig
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.appSettings = this.appConfig.skyux.appSettings;
   }
 }
