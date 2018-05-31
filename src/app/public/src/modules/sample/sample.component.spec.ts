@@ -1,4 +1,5 @@
 import {
+  async,
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
@@ -9,7 +10,7 @@ import {
 
 import {
   expect
-} from '@blackbaud/skyux-builder/runtime/testing/browser';
+} from '@blackbaud/skyux-lib-testing';
 
 import {
   MyLibrarySampleComponent
@@ -51,4 +52,9 @@ describe('LibrarySampleComponent', () => {
     fixture.detectChanges();
     expect(component.appSettings.myLibrary.name).toBe('Library');
   });
+
+  it('should pass accessibility', async(() => {
+    fixture.detectChanges();
+    expect(fixture.nativeElement).toBeAccessible();
+  }));
 });
