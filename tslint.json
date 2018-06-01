@@ -1,34 +1,3 @@
 {
-  "extends": "@blackbaud/skyux-builder/tslint",
-  "rules": {
-    "import-blacklist": [
-      true,
-      "rxjs",
-      "rxjs/Rx"
-    ],
-    "import-spacing": true,
-    "interface-over-type-literal": true,
-    "member-ordering": [
-      true,
-      {
-        "order": [
-          "public-static-field",
-          "public-instance-field",
-          "private-static-field",
-          "private-instance-field",
-          "public-constructor",
-          "public-instance-method",
-          "protected-instance-method",
-          "private-instance-method"
-        ]
-      }
-    ],
-    "ordered-imports": [
-      true,
-      {
-        "grouped-imports": true
-      }
-    ],
-    "prefer-const": true
-  }
+  "extends": "@blackbaud/skyux-builder/tslint"
 }
