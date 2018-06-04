@@ -1,8 +1,14 @@
 const spawn = require('cross-spawn');
 
+function log(buffer) {
+  const bufferAsString = buffer.toString('utf8');
+  console.log(bufferAsString);
+  return bufferAsString;
+}
+
 function exec(cmd, args, opts) {
   console.log(`Running command: ${cmd} ${args.join(' ')}`);
-  const cp = childProcessSpawn(cmd, args, opts);
+  const cp = spawn(cmd, args, opts);
 
   cp.stdout.on('data', data => log(data));
   cp.stderr.on('data', data => log(data));
@@ -20,6 +26,5 @@ function exec(cmd, args, opts) {
 
 exec('git', [
   'checkout',
-  'master',
-  '--single-branch'
+  'master'
 ]);
