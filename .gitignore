@@ -24,6 +24,10 @@ jspm_packages
 # SKY UX build directory
 dist
 
+# Visual test directories
+screenshots-baseline-local
+screenshots-diff-local
+
 # OS specific files
 .DS_Store
 

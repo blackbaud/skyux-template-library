@@ -22,6 +22,7 @@
   "dependencies": {},
   "devDependencies": {
     "@blackbaud/skyux-builder": "1.16.0",
+    "@blackbaud/skyux-lib-e2e": "blackbaud/skyux-lib-e2e",
     "@blackbaud/skyux-lib-testing": "1.0.0",
     "@blackbaud/skyux": "2.13.0"
   }
