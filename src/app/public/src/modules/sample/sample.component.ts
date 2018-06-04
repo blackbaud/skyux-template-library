@@ -1,12 +1,27 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit
+} from '@angular/core';
 
-import { LibraryConfigService } from '../shared';
+import {
+  SkyAppConfig
+} from '@blackbaud/skyux-builder/runtime';
 
 @Component({
   selector: 'lib-sample',
   templateUrl: './sample.component.html',
-  styleUrls: ['./sample.component.scss']
+  styleUrls: ['./sample.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LibrarySampleComponent {
-  constructor(public configService: LibraryConfigService) {}
+export class MyLibrarySampleComponent implements OnInit {
+  public appSettings: any;
+
+  constructor(
+    private appConfig: SkyAppConfig
+  ) { }
+
+  public ngOnInit(): void {
+    this.appSettings = this.appConfig.skyux.appSettings;
+  }
 }
