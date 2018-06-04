@@ -1,4 +1,5 @@
 const spawn = require('cross-spawn');
+const rimraf = require('rimraf');
 
 function log(buffer) {
   console.log(buffer.toString('utf8'));
@@ -68,6 +69,13 @@ exec('git config --get remote.origin.url')
   .then(() => exec('npm install', { cwd: tempDir }))
   .then(() => exec('skyux e2e', { cwd: tempDir }))
 
-  .then((result) => {
-    console.log('hey!', result);
+  .then(() => rimraf.sync(tempDir))
+  .then(() => {
+    console.log('DONE.');
+    process.exit(0);
+  })
+  .catch((err) => {
+    console.log('ERROR.', err);
+    throw err;
+    process.exit(1);
   });
