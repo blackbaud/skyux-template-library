@@ -1,3 +1,4 @@
+const fs = require('fs-extra');
 const spawn = require('cross-spawn');
 const rimraf = require('rimraf');
 
@@ -45,8 +46,51 @@ function exec(command, opts) {
   });
 }
 
-let branch;
-let tempDir = '.skypagese2etemp'
+const tempDir = '.skypagese2etemp'
+const webdriverDir = `${tempDir}/skyux-visualtest-results`;
+const githubToken = '';
+
+let featureBranch;
+
+function handleDiffScreenshots() {
+  const buildId = new Date();
+
+  let diffBranch = `skyux2-${buildId}-webdriver`;
+  let isSavageBranch = (false);
+
+  if (isSavageBranch) {
+    diffBranch += '-savage';
+  }
+
+  // git config --global user.email "sky-build-user@blackbaud.com"
+  // git config --global user.name "Blackbaud Sky Build User"
+  return exec(`git clone --quiet https://${githubToken}@github.com/blackbaud/skyux-visualtest-results.git > /dev/null`, { cwd: tempDir })
+    .then(() => {
+      return new Promise((resolve, reject) => {
+        fs.copy(
+          `${tempDir}/screenshots-diff`,
+          `${webdriverDir}/screenshots-diff`,
+          (err) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          }
+        );
+      });
+    })
+    .then(() => exec(`git checkout -b ${diffBranch}`, { cwd: webdriverDir }))
+    .then(() => exec(`git commit -m "Build ${buildId} webdriver screenshot results pushed to skyux-visualtest-results"`, { cwd: webdriverDir }))
+    .then(() => exec(`git push -fq origin ${diffBranch} > /dev/null`, { cwd: webdriverDir }))
+    .then(() => {
+      return Promise.reject(new Error(
+        `skyux-visualtest-results webdriver successfully updated.\n`,
+        `Test results may be viewed at`,
+        `https://github.com/blackbaud/skyux-visualtest-results/tree/${diffBranch}`
+      ));
+    });
+}
 
 exec('git config --get remote.origin.url')
   .then((result) => {
@@ -58,7 +102,7 @@ exec('git config --get remote.origin.url')
   // https://stackoverflow.com/a/12142066/6178885
   .then(() => exec('git rev-parse --abbrev-ref HEAD'))
   .then((result) => {
-    branch = result.output.replace(/\n/g, '');
+    featureBranch = result.output.replace(/\n/g, '');
     return result;
   })
 
@@ -67,53 +111,24 @@ exec('git config --get remote.origin.url')
   .then(() => exec('skyux e2e', { cwd: tempDir }))
 
   // Run tests against feature branch.
-  .then(() => exec(`git checkout ${branch}`, { cwd: tempDir }))
+  .then(() => exec(`git checkout ${featureBranch}`, { cwd: tempDir }))
   .then(() => exec('git status', { cwd: tempDir }))
   .then(() => exec('npm install', { cwd: tempDir }))
   .then(() => exec('skyux e2e', { cwd: tempDir }))
 
   // Commit any diff screenshots to a remote, third-party repo.
-  .then(() => exec('git status screenshots-baseline-local', { cwd: tempDir }))
+  .then(() => exec('git status screenshots-diff --porcelain', { cwd: tempDir }))
   .then((result) => {
-    console.log('result?', result);
-    const hasChanges = (result.indexOf('nothing to commit') > -1);
+    // Untracked files are prefixed with '??'
+    // https://git-scm.com/docs/git-status/1.8.1#_output
+    // https://stackoverflow.com/a/6978402/6178885
+    const hasChanges = (result.output && result.output.indexOf('??') > -1);
 
     if (hasChanges) {
-
-      // git config --global user.email "sky-build-user@blackbaud.com"
-      // git config --global user.name "Blackbaud Sky Build User"
-      // git clone --quiet https://${GH_TOKEN}@github.com/blackbaud/skyux-visualtest-results.git skyux-visualtest-results-webdriver > /dev/null
-      // cd skyux-visualtest-results-webdriver
-
-      // let branch = `skyux2-${new Date()}-webdriver`;
-      // // if [[ $TRAVIS_BRANCH =~ $SAVAGE_BRANCH ]]; then
-      // //   branch="$branch-savage"
-      // // fi
-      // exec(`git checkout -b ${branch}`);
-
-      // cp -rf ../skyux-spa-visual-tests/screenshots-created/ created-screenshots/
-
-      // mkdir -p failures
-
-      // cp -rf ../skyux-spa-visual-tests/screenshots-diff/ failures/
-
-      // mkdir -p all
-
-      // cp -rf ../skyux-spa-visual-tests/screenshots-baseline/ all/
-
-      // git add -A
-      // if [ -z "$(git status --porcelain)" ]; then
-      //     echo -e "No changes to commit to skyux visual test webdriver results."
-      // else
-      //     git commit -m "Travis build $TRAVIS_BUILD_NUMBER webdriver screenshot results pushed to skyux-visualtest-results"
-      //     git push -fq origin $branch > /dev/null
-      //     echo -e "skyux-visualtest-results webdriver successfully updated.\nTest results may be viewed at https://github.com/blackbaud/skyux-visualtest-results/tree/$branch"
-      // fi
-
-      return Promise.reject(new Error('There are visual differences!'));
-    } else {
-      return Promise.resolve();
+      return handleDiffScreenshots(result);
     }
+
+    return Promise.resolve();
   })
 
   // Delete temp folder.
