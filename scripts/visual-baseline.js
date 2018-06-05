@@ -73,11 +73,43 @@ exec('git config --get remote.origin.url')
   .then(() => exec('skyux e2e', { cwd: tempDir }))
 
   // Commit any diff screenshots to a remote, third-party repo.
-  .then(() => exec('git status screenshots-diff', { cwd: tempDir }))
+  .then(() => exec('git status screenshots-baseline-local', { cwd: tempDir }))
   .then((result) => {
+    console.log('result?', result);
     const hasChanges = (result.indexOf('nothing to commit') > -1);
 
     if (hasChanges) {
+
+      // git config --global user.email "sky-build-user@blackbaud.com"
+      // git config --global user.name "Blackbaud Sky Build User"
+      // git clone --quiet https://${GH_TOKEN}@github.com/blackbaud/skyux-visualtest-results.git skyux-visualtest-results-webdriver > /dev/null
+      // cd skyux-visualtest-results-webdriver
+
+      // let branch = `skyux2-${new Date()}-webdriver`;
+      // // if [[ $TRAVIS_BRANCH =~ $SAVAGE_BRANCH ]]; then
+      // //   branch="$branch-savage"
+      // // fi
+      // exec(`git checkout -b ${branch}`);
+
+      // cp -rf ../skyux-spa-visual-tests/screenshots-created/ created-screenshots/
+
+      // mkdir -p failures
+
+      // cp -rf ../skyux-spa-visual-tests/screenshots-diff/ failures/
+
+      // mkdir -p all
+
+      // cp -rf ../skyux-spa-visual-tests/screenshots-baseline/ all/
+
+      // git add -A
+      // if [ -z "$(git status --porcelain)" ]; then
+      //     echo -e "No changes to commit to skyux visual test webdriver results."
+      // else
+      //     git commit -m "Travis build $TRAVIS_BUILD_NUMBER webdriver screenshot results pushed to skyux-visualtest-results"
+      //     git push -fq origin $branch > /dev/null
+      //     echo -e "skyux-visualtest-results webdriver successfully updated.\nTest results may be viewed at https://github.com/blackbaud/skyux-visualtest-results/tree/$branch"
+      // fi
+
       return Promise.reject(new Error('There are visual differences!'));
     } else {
       return Promise.resolve();
@@ -85,7 +117,8 @@ exec('git config --get remote.origin.url')
   })
 
   // Delete temp folder.
-  .then((result) => rimraf.sync(tempDir))
+  // .then((result) => rimraf.sync(tempDir))
+
   .then(() => {
     console.log('DONE.');
     process.exit(0);
