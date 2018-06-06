@@ -8,6 +8,9 @@ const webdriverDir = `${tempDir}/skyux-visualtest-results`;
 const diffDirName = 'screenshots-baseline-local';
 const githubToken = process.env.GH_TOKEN;
 
+// const headBranch = 'master';
+const headBranch = 'visual-test-2';
+
 function log(buffer) {
   console.log(buffer.toString('utf8'));
 }
@@ -68,8 +71,8 @@ function handleDiffScreenshots() {
   // exec('git', ['config', '--global', 'user.email', '"sky-build-user@blackbaud.com"']);
   // exec('git', ['config', '--global', 'user.name', '"Blackbaud Sky Build User"']);
 
-  return exec('git', ['clone', 'git@github.com:blackbaud/skyux-visualtest-results.git', '--branch', 'master', '--single-branch'], { cwd: tempDir })
-  // return exec('git', ['clone', `https://${githubToken}@github.com/blackbaud/skyux2.git`, '--branch', 'master', '--single-branch'], { cwd: tempDir })
+  return exec('git', ['clone', 'git@github.com:blackbaud/skyux-visualtest-results.git', '--branch', headBranch, '--single-branch'], { cwd: tempDir })
+  // return exec('git', ['clone', `https://${githubToken}@github.com/blackbaud/skyux2.git`, '--branch', headBranch, '--single-branch'], { cwd: tempDir })
     .then(() => fs.copy(`${tempDir}/${diffDirName}`, `${webdriverDir}/${diffDirName}`))
     .then(() => exec('git', ['checkout', '-b', diffBranch], { cwd: webdriverDir }))
     .then(() => exec('git', ['add', '.'], { cwd: webdriverDir }))
@@ -112,7 +115,7 @@ new Promise((resolve, reject) => {
   })
 
   // Create baselines from master branch.
-  .then(() => exec('git', ['clone', '--depth', '1', gitUrl, '--no-single-branch', tempDir]))
+  .then(() => exec('git', ['clone', '--depth', '1', gitUrl, '--branch', headBranch, '--no-single-branch', tempDir]))
   .then(() => exec('npm', ['install'], { cwd: tempDir }))
   .then(() => exec('skyux', ['e2e'], { cwd: tempDir }))
 
