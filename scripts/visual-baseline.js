@@ -2,14 +2,20 @@ const fs = require('fs-extra');
 const spawn = require('cross-spawn');
 const rimraf = require('rimraf');
 
+const tempDir = '.skypagese2etemp'
+const webdriverDir = `${tempDir}/skyux-visualtest-results`;
+// const diffDirName = 'screenshots-diff';
+const diffDirName = 'screenshots-baseline-local';
+const githubToken = process.env.GH_TOKEN;
+
 function log(buffer) {
   console.log(buffer.toString('utf8'));
 }
 
-function exec(command, opts) {
-  const fragments = command.split(' ');
-  const args = fragments.slice(1, fragments.length);
-  const cmd = fragments[0];
+function exec(cmd, args, opts) {
+  // const fragments = command.split(' ');
+  // const args = fragments.slice(1, fragments.length);
+  // const cmd = fragments[0];
 
   console.log(`Running command: ${cmd} ${args.join(' ')}`);
 
@@ -46,14 +52,11 @@ function exec(command, opts) {
   });
 }
 
-const tempDir = '.skypagese2etemp'
-const webdriverDir = `${tempDir}/skyux-visualtest-results`;
-const githubToken = '';
-
-let featureBranch;
-
 function handleDiffScreenshots() {
-  const buildId = new Date();
+  // Short-circuit for now.
+  return Promise.resolve();
+
+  const buildId = new Date().getTime();
 
   let diffBranch = `skyux2-${buildId}-webdriver`;
   let isSavageBranch = (false);
@@ -62,62 +65,66 @@ function handleDiffScreenshots() {
     diffBranch += '-savage';
   }
 
-  // git config --global user.email "sky-build-user@blackbaud.com"
-  // git config --global user.name "Blackbaud Sky Build User"
-  return exec(`git clone --quiet https://${githubToken}@github.com/blackbaud/skyux-visualtest-results.git > /dev/null`, { cwd: tempDir })
+  // exec('git', ['config', '--global', 'user.email', '"sky-build-user@blackbaud.com"']);
+  // exec('git', ['config', '--global', 'user.name', '"Blackbaud Sky Build User"']);
+
+  return exec('git', ['clone', 'git@github.com:blackbaud/skyux-visualtest-results.git', '--branch', 'master', '--single-branch'], { cwd: tempDir })
+  // return exec('git', ['clone', `https://${githubToken}@github.com/blackbaud/skyux2.git`, '--branch', 'master', '--single-branch'], { cwd: tempDir })
+    .then(() => fs.copy(`${tempDir}/${diffDirName}`, `${webdriverDir}/${diffDirName}`))
+    .then(() => exec('git', ['checkout', '-b', diffBranch], { cwd: webdriverDir }))
+    .then(() => exec('git', ['add', '.'], { cwd: webdriverDir }))
+    .then(() => exec('git', ['commit', '-m', `"Build ${buildId} webdriver screenshot results pushed to skyux-visualtest-results"`], { cwd: webdriverDir }))
+    .then(() => exec('git', ['push', '-fq', 'origin', diffBranch], { cwd: webdriverDir }))
     .then(() => {
-      return new Promise((resolve, reject) => {
-        fs.copy(
-          `${tempDir}/screenshots-diff`,
-          `${webdriverDir}/screenshots-diff`,
-          (err) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve();
-            }
-          }
-        );
-      });
-    })
-    .then(() => exec(`git checkout -b ${diffBranch}`, { cwd: webdriverDir }))
-    .then(() => exec(`git commit -m "Build ${buildId} webdriver screenshot results pushed to skyux-visualtest-results"`, { cwd: webdriverDir }))
-    .then(() => exec(`git push -fq origin ${diffBranch} > /dev/null`, { cwd: webdriverDir }))
-    .then(() => {
-      return Promise.reject(new Error(
-        `skyux-visualtest-results webdriver successfully updated.\n`,
-        `Test results may be viewed at`,
+      return Promise.reject(new Error([
+        `Test failure results may be viewed at:`,
         `https://github.com/blackbaud/skyux-visualtest-results/tree/${diffBranch}`
-      ));
+      ].join('\n')));
     });
 }
 
-exec('git config --get remote.origin.url')
+let gitUrl;
+let featureBranch;
+
+new Promise((resolve, reject) => {
+  rimraf(tempDir, (err) => {
+    if (err) {
+      reject(err);
+      return;
+    }
+
+    resolve();
+  })
+})
+  // Get origin URL.
+  .then(() => exec('git', ['config', '--get', 'remote.origin.url']))
   .then((result) => {
-    const gitUrl = result.output.replace(/\n/g, '');
-    return exec(`git clone ${gitUrl} ${tempDir}`);
+    gitUrl = result.output.replace(/\n/g, '');
+    return gitUrl;
   })
 
   // Get name of feature branch:
   // https://stackoverflow.com/a/12142066/6178885
-  .then(() => exec('git rev-parse --abbrev-ref HEAD'))
+  .then(() => exec('git', ['rev-parse', '--abbrev-ref', 'HEAD']))
   .then((result) => {
     featureBranch = result.output.replace(/\n/g, '');
-    return result;
+    return featureBranch;
   })
 
   // Create baselines from master branch.
-  .then(() => exec('npm install', { cwd: tempDir }))
-  .then(() => exec('skyux e2e', { cwd: tempDir }))
+  .then(() => exec('git', ['clone', '--depth', '1', gitUrl, '--no-single-branch', tempDir]))
+  .then(() => exec('npm', ['install'], { cwd: tempDir }))
+  .then(() => exec('skyux', ['e2e'], { cwd: tempDir }))
 
-  // Run tests against feature branch.
-  .then(() => exec(`git checkout ${featureBranch}`, { cwd: tempDir }))
-  .then(() => exec('git status', { cwd: tempDir }))
-  .then(() => exec('npm install', { cwd: tempDir }))
-  .then(() => exec('skyux e2e', { cwd: tempDir }))
+  // Compare screenshots generated within feature branch.
+  // .then(() => exec('git', ['fetch', 'origin', featureBranch, '--depth', '1'], { cwd: tempDir }))
+  .then(() => exec('git', ['checkout', featureBranch], { cwd: tempDir }))
+  .then(() => exec('git', ['status'], { cwd: tempDir }))
+  .then(() => exec('npm', ['install'], { cwd: tempDir }))
+  .then(() => exec('skyux', ['e2e'], { cwd: tempDir }))
 
   // Commit any diff screenshots to a remote, third-party repo.
-  .then(() => exec('git status screenshots-diff --porcelain', { cwd: tempDir }))
+  .then(() => exec('git', ['status', diffDirName, '--porcelain'], { cwd: tempDir }))
   .then((result) => {
     // Untracked files are prefixed with '??'
     // https://git-scm.com/docs/git-status/1.8.1#_output
@@ -135,10 +142,10 @@ exec('git config --get remote.origin.url')
   // .then((result) => rimraf.sync(tempDir))
 
   .then(() => {
-    console.log('DONE.');
+    console.log('SKY UX visual test complete.');
     process.exit(0);
   })
   .catch((err) => {
-    throw err;
+    console.log('SKY UX visual test failure:\n', err);
     process.exit(1);
   });
