@@ -25,3 +25,7 @@ before_install:
   - sudo dpkg -i google-chrome*.deb
   - rm google-chrome*.deb
   - npm install -g @blackbaud/skyux-cli
+  - npm install blackbaud/skyux-builder-config#travis-configs
+
+script:
+  - npm run test:ci
