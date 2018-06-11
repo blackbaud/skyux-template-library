@@ -25,9 +25,8 @@ jspm_packages
 dist
 
 # Visual test directories
-# screenshots-baseline-local
-# screenshots-diff-local
-# .skypagese2etemp
+screenshots-baseline-local
+screenshots-diff-local
 
 # OS specific files
 .DS_Store
