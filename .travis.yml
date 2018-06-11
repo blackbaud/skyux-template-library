@@ -29,3 +29,9 @@ before_install:
 
 script:
   - npm run test:ci
+
+after_success:
+  - node ./node_modules/@blackbaud/skyux-builder-config/scripts/visual-baseline.js
+
+after_failure:
+  - node ./node_modules/@blackbaud/skyux-builder-config/scripts/visual-failures.js
