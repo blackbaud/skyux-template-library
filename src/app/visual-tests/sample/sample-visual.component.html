@@ -1,0 +1,13 @@
+<div class="sky-container">
+  <div id="lib-sample-screenshot">
+    <lib-sample-demo>
+    </lib-sample-demo>
+  </div>
+
+  <p></p>
+
+  <div *ngFor="let file of demoService.files">
+    <strong>{{ file.name }}</strong><br>
+    <pre>{{ file.contents }}</pre>
+  </div>
+</div>

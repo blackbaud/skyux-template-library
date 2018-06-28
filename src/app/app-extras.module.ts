@@ -3,16 +3,16 @@ import {
 } from '@angular/core';
 
 import {
-  MyLibraryModule
-} from './public';
+  MyLibrarySampleDemoModule
+} from './public/src/demos';
 
 // Specify entry components, module-level providers, etc. here.
 @NgModule({
   imports: [
-    MyLibraryModule
+    MyLibrarySampleDemoModule
   ],
   exports: [
-    MyLibraryModule
+    MyLibrarySampleDemoModule
   ],
   providers: [],
   entryComponents: []
