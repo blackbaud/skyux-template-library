@@ -7,7 +7,12 @@
   <p></p>
 
   <div *ngFor="let file of demoService.files">
-    <strong>{{ file.name }}</strong><br>
+    <strong>
+      {{ file.fileName }}
+      <span *ngIf="file.moduleName">
+        ({{ file.moduleName }})
+      </span>
+    </strong><br>
     <pre>{{ file.contents }}</pre>
   </div>
 </div>

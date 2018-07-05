@@ -7,18 +7,25 @@ import {
 } from '@angular/common';
 
 import {
-  MyLibrarySampleComponent
+  MySampleComponent
 } from './sample.component';
+
+import {
+  MySampleService
+} from './sample.service';
 
 @NgModule({
   declarations: [
-    MyLibrarySampleComponent
+    MySampleComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    MyLibrarySampleComponent
+    MySampleComponent
+  ],
+  providers: [
+    MySampleService
   ]
 })
-export class MyLibrarySampleModule { }
+export class MySampleModule { }

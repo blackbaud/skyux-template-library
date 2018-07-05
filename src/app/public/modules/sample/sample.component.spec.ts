@@ -13,7 +13,7 @@ import {
 } from '@blackbaud/skyux-lib-testing';
 
 import {
-  MyLibrarySampleComponent
+  MySampleComponent
 } from './sample.component';
 
 class MockSkyAppConfig {
@@ -28,13 +28,13 @@ class MockSkyAppConfig {
 }
 
 describe('LibrarySampleComponent', () => {
-  let component: MyLibrarySampleComponent;
-  let fixture: ComponentFixture<MyLibrarySampleComponent>;
+  let component: MySampleComponent;
+  let fixture: ComponentFixture<MySampleComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        MyLibrarySampleComponent
+        MySampleComponent
       ],
       providers: [
         {
@@ -44,7 +44,7 @@ describe('LibrarySampleComponent', () => {
       ]
     });
 
-    fixture = TestBed.createComponent(MyLibrarySampleComponent);
+    fixture = TestBed.createComponent(MySampleComponent);
     component = fixture.componentInstance;
   });
 

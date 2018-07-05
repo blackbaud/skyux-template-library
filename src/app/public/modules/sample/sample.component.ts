@@ -5,8 +5,8 @@ import {
 } from '@angular/core';
 
 import {
-  SkyAppConfig
-} from '@blackbaud/skyux-builder/runtime';
+  MySampleService
+} from './sample.service';
 
 @Component({
   selector: 'lib-sample',
@@ -14,14 +14,14 @@ import {
   styleUrls: ['./sample.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MyLibrarySampleComponent implements OnInit {
-  public appSettings: any;
+export class MySampleComponent implements OnInit {
+  public name: string;
 
   constructor(
-    private appConfig: SkyAppConfig
+    private sampleService: MySampleService
   ) { }
 
   public ngOnInit(): void {
-    this.appSettings = this.appConfig.skyux.appSettings;
+    this.name = this.sampleService.appSettings.myLibrary.name;
   }
 }

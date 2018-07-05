@@ -3,8 +3,8 @@ import {
 } from '@angular/core';
 
 import {
-  MyLibrarySampleDemoService
-} from '../../public/src/demos';
+  MySampleDemoService
+} from '../../public/demos';
 
 @Component({
   selector: 'lib-sample-visual',
@@ -12,6 +12,6 @@ import {
 })
 export class MyLibSampleVisualComponent {
   constructor(
-    public demoService: MyLibrarySampleDemoService
+    public demoService: MySampleDemoService
   ) { }
 }

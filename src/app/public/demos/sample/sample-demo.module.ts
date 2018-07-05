@@ -3,29 +3,29 @@ import {
 } from '@angular/core';
 
 import {
-  MyLibrarySampleModule
+  MySampleModule
 } from '../../modules/sample';
 
 import {
-  MyLibrarySampleDemoComponent
+  MySampleDemoComponent
 } from './sample-demo.component';
 
 import {
-  MyLibrarySampleDemoService
+  MySampleDemoService
 } from './sample-demo.service';
 
 @NgModule({
   declarations: [
-    MyLibrarySampleDemoComponent
+    MySampleDemoComponent
   ],
   imports: [
-    MyLibrarySampleModule
+    MySampleModule
   ],
   exports: [
-    MyLibrarySampleDemoComponent
+    MySampleDemoComponent
   ],
   providers: [
-    MyLibrarySampleDemoService
+    MySampleDemoService
   ]
 })
-export class MyLibrarySampleDemoModule { }
+export class MySampleDemoModule { }
