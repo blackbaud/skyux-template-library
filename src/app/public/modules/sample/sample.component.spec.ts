@@ -16,6 +16,10 @@ import {
   MySampleComponent
 } from './sample.component';
 
+import {
+  MySampleService
+} from './sample.service';
+
 class MockSkyAppConfig {
   public runtime: any = {};
   public skyux: any = {
@@ -37,6 +41,7 @@ describe('LibrarySampleComponent', () => {
         MySampleComponent
       ],
       providers: [
+        MySampleService,
         {
           provide: SkyAppConfig,
           useClass: MockSkyAppConfig
@@ -50,7 +55,7 @@ describe('LibrarySampleComponent', () => {
 
   it('should output the name from config', () => {
     fixture.detectChanges();
-    expect(component.appSettings.myLibrary.name).toBe('Library');
+    expect(component.name).toBe('Library');
   });
 
   it('should pass accessibility', async(() => {
