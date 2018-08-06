@@ -1,5 +1,5 @@
 {
-  "name": "@blackbaud/my-library",
+  "name": "@blackbaud-internal/my-library",
   "version": "1.0.0",
   "description": "SKY UX component library",
   "main": "bundles/bundle.umd.js",
