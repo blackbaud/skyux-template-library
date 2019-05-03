@@ -9,6 +9,7 @@ coverage
 # Dependency directories
 node_modules
 jspm_packages
+yarn.lock
 
 # Optional npm cache directory
 .npm
@@ -17,9 +18,9 @@ jspm_packages
 .node_repl_history
 
 # SKY UX temp directory
-.skypagestmp
 .skyuxtmp
-.srctmp
+.skypageslocales
+.skypagestmp
 
 # SKY UX build directory
 dist
@@ -27,6 +28,5 @@ dist
 # OS specific files
 .DS_Store
 
-*.ngfactory.ts
-*.ngsummary.json
-yarn.lock
+# IntelliJ files
+.idea
